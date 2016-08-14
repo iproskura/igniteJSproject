@@ -423,7 +423,7 @@ window.onload = function () {
     };
 
     setInterval(function () {
-        slider.right();
+        logoslider.right();
     }, 3000);
 //    endof #logoslider
 
