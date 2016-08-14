@@ -64,9 +64,9 @@ window.onload = function () {
             }, false);
         }); //toggle
     })();  //endof smooth
-// ***************************************************************
+// *********************************
 
-    // СЛАЙДЕР
+    // С****************************
     function slider() {
         var sliders = document.getElementById("banner").getElementsByClassName("banner-item").length;
         var n = 0;
@@ -83,9 +83,9 @@ window.onload = function () {
             sec();
         }
 
-        // автоматическое показ слайдов
+
         var auto = window.setInterval(autoPlay, 3000);
-        // листаем влево
+
         document.querySelector(".b-nav-left").onclick = function () {
             clearInterval(auto);
             n--;
@@ -94,7 +94,6 @@ window.onload = function () {
                 auto = window.setInterval(autoPlay, 3000);
             }, 5000);
             return sec();
-
         };
 
         // листаем вправо
@@ -108,7 +107,6 @@ window.onload = function () {
                 auto = window.setInterval(autoPlay, 3000);
             }, 5000);
             return sec();
-
         };
 
         // показываем нужный слайд
@@ -121,16 +119,12 @@ window.onload = function () {
             // делаем видимым нужный слайд
             obj[n].classList.add("show");
         }
-
     }
 
-    slider();
     // endof slider ******************************************************
 
 
     function enlange() {
-
-
         var childs = document.getElementsByClassName("enlarge");
         var childElems = [];
         for (var i = 0; i < childs.length; i++) {
@@ -142,18 +136,14 @@ window.onload = function () {
         for (var j = 0; j < childElems.length; j++) {
             childElems[j].onmouseover = function () {
                 this.style.width = this.width + "px";
-                this.style.width = this.width / 100 * 120 + "px";
-
+                this.style.width = this.width / 100 * 120 + "px"; //enlarge by 20%
             };
             childElems[j].onmouseout = function () {
                 this.style.width = "";
             }
-
         }
     };
-    //endof enlarge *****************************************************
-
-    enlange();
+    //endof enlarge ******************************
 
     function filtr() {
         var tabs = document.getElementById("filtr").querySelector(".filtr-item").getElementsByClassName("let1");
@@ -183,8 +173,6 @@ window.onload = function () {
             };
         }
     }
-
-    filtr();
 
 
     var olso = true;
@@ -246,6 +234,7 @@ window.onload = function () {
         }
 
     });
+
     // load the canvas
     function progressBar(canvasId) {
         var degreesCall;
@@ -337,7 +326,6 @@ window.onload = function () {
         }
     }
 
-    team();
 //    endof team
 
 
@@ -365,11 +353,9 @@ window.onload = function () {
     // В поле Name допускаются только буквы английского алфавита.
     // В поле Email допускаются толко буквы английского алфавита, цифры, знак подчеркивание и симвом @.
     // В поле Subject допускаются только буквы английского алфавита и цифры.
-
     var namePattern = /[a-z]/gi;
     // var emailPattern = /[.-a-z0-9@]/gi;                           //TODO bug
     var emailPattern = /b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;   //TODO bug
-
     var subjectPattern = /\w/gi;
 
 
@@ -414,9 +400,38 @@ window.onload = function () {
         // tipTargets[j].addEventListener("invalid", toolTipShower);
         tipTargets[j].addEventListener("keypress", validator);
         tipTargets[j].addEventListener("blur", removeTip);
-
     }
-
 //  endof form validation
 
+//    #logoslider
+    var logoslider = {
+        slides: ["logo1.png", "logo2.png", "logo3.png", "logo4.png", "logo5.png", "logo6.png", "logo7.png"],
+        frame: 0,
+        set: function (image) {
+            document.getElementById("logoslider").style.backgroundImage = "url(img/clients/" + image + ")";
+        },
+
+        init: function () {
+            this.set(this.slides[this.frame]);
+        },
+
+        right: function () {
+            this.frame++;
+            if (this.frame == this.slides.length) this.frame = 0;
+            this.set(this.slides[this.frame]);
+        }
+    };
+
+    setInterval(function () {
+        slider.right();
+    }, 3000);
+//    endof #logoslider
+
+//    functions call section ******************
+
+    slider();
+    filtr();
+    enlange();
+    team();
+    logoslider.init();
 };
