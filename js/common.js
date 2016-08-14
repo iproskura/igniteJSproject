@@ -154,32 +154,6 @@ window.onload = function () {
     //endof enlarge *****************************************************
 
     enlange();
-    /*
-     function Menu(elem) {
-     elem.onclick = function (e) {
-     var target = e.target;
-     var action = target.getAttribute('data-status');
-     if (action) {
-
-     a = document.getElementById(action);
-
-     to = a.offsetTop;
-     var currentScroll = window.scrollY,
-     down = currentScroll < to;
-
-     var scr = setInterval(function () {
-     currentScroll = currentScroll + 10 * (down ? 1 : -1);
-     window.scrollTo(0, currentScroll);
-     if ((down && currentScroll > to) || (!down && currentScroll < to)) {
-     clearInterval(scr);
-     }
-     }, 10);
-
-     }
-     };
-     }
-
-     new Menu(menu);*/
 
     function filtr() {
         var tabs = document.getElementById("filtr").querySelector(".filtr-item").getElementsByClassName("let1");
@@ -226,7 +200,7 @@ window.onload = function () {
             }
         }
 
-    })
+    });
 
     function chet() {
         var a = document.getElementsByClassName("hdoit-t");
@@ -364,5 +338,85 @@ window.onload = function () {
     }
 
     team();
-//
+//    endof team
+
+
+//    form validation
+    // function toolTipShower(e) {
+    //     var ttip = document.getElementById("tip");
+    //
+    //     tip.innerHTML = e.target.dataset.tooltip;
+    //     ttip.style.width = e.target.offsetWidth;
+    //     ttip.style.left = e.target.getBoundingClientRect().left + "px";
+    //     ttip.style.top = e.target.getBoundingClientRect().top - 25 + "px";
+    // }
+
+    var formChilds = document.querySelectorAll("#formValidate input");
+    var tipTargets = [];
+
+    for (var i = 0; i < formChilds.length; i++) {
+        if (formChilds[i].nodeType == 1 && formChilds[i].hasAttribute("data-tooltip")) {
+            tipTargets.push(formChilds[i]);
+        }
+    }
+
+    var sendMsgBtn = document.getElementById("sendMsgBtn");
+
+    // В поле Name допускаются только буквы английского алфавита.
+    // В поле Email допускаются толко буквы английского алфавита, цифры, знак подчеркивание и симвом @.
+    // В поле Subject допускаются только буквы английского алфавита и цифры.
+
+    var namePattern = /[a-z]/gi;
+    // var emailPattern = /[.-a-z0-9@]/gi;                           //TODO bug
+    var emailPattern = /b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;   //TODO bug
+
+    var subjectPattern = /\w/gi;
+
+
+    function validator(e) {
+        var pattern;
+
+        //tooltip section
+        var ttip = document.getElementById("tip");
+        tip.innerHTML = e.target.dataset.tooltip;
+        ttip.style.width = e.target.offsetWidth;
+        ttip.style.left = e.target.getBoundingClientRect().left + "px";
+        ttip.style.top = e.target.getBoundingClientRect().top - 25 + "px";
+        ttip.style.display = "none";
+        //endof tooltip
+
+        switch (e.target.name) {
+            case "Name":
+                pattern = namePattern;
+                break;
+            case "Email":
+                pattern = emailPattern;
+                break;
+            case "Subject":
+                pattern = subjectPattern;
+                break
+        }
+
+        if (!e.target.value.match(pattern)) {
+            ttip.style.display = "";
+        } else {
+            ttip.style.display = "none";
+        }
+    }
+
+    function removeTip() {
+        var ttip = document.getElementById("tip");
+        ttip.style.display = "none";
+    }
+
+    // ttip/validation targets
+    for (var j = 0; j < tipTargets.length; j++) {
+        // tipTargets[j].addEventListener("invalid", toolTipShower);
+        tipTargets[j].addEventListener("keypress", validator);
+        tipTargets[j].addEventListener("blur", removeTip);
+
+    }
+
+//  endof form validation
+
 };
